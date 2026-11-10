@@ -48,25 +48,32 @@ h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; line-height: 
 @keyframes halo { 0%, 100% { box-shadow: 0 0 0 0 rgba(226, 176, 74, 0.5); } 50% { box-shadow: 0 0 0 10px rgba(226, 176, 74, 0); } }
 @keyframes floaty { 0%, 100% { translate: 0 0; } 50% { translate: 0 -8px; } }
 
-.band { padding-block: 32px 64px; }
-.sec-head { display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; margin-bottom: 32px; }
+.band { padding-block: 24px 64px; }
+.stage { --tone: var(--accent-text); --tone-soft: var(--accent-soft); --tone-line: var(--accent); --tone-btn1: var(--accent-deep); --tone-btn2: var(--accent-2); margin-bottom: 56px; }
+.stage.prep { --tone: #4fd1c5; --tone-soft: rgba(79, 209, 197, 0.14); --tone-line: #2fb8ac; --tone-btn1: #1f9d92; --tone-btn2: #6fe3d8; }
+.stage.prim { --tone: #ff9ec4; --tone-soft: rgba(255, 158, 196, 0.14); --tone-line: #f06fa3; --tone-btn1: #e0558b; --tone-btn2: #ffb6d3; }
+.stage:last-child { margin-bottom: 0; }
+.sec-head { display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; margin-bottom: 28px; }
+.sec-head .eyebrow { color: var(--tone); background: var(--tone-soft); }
 .sec-head h2 { font-size: clamp(1.4rem, 3.2vw, 2rem); font-weight: 700; }
-.sec-head h2::after { content: ""; display: block; width: 36px; height: 3px; margin: 12px auto 0; border-radius: 3px; background: var(--accent); }
+.sec-head h2::after { content: ""; display: block; width: 36px; height: 3px; margin: 12px auto 0; border-radius: 3px; background: var(--tone-line); }
 .sec-head p { color: var(--muted); max-width: 56ch; }
-
-.grades { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 760px; margin-inline: auto; }
-.grade { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 32px 22px; transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s; }
-.grade:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3); }
-.grade .glyph { display: grid; place-items: center; width: 84px; height: 84px; border-radius: 22px; background: var(--accent-soft); border: 1px solid var(--accent); color: var(--accent-text); font-family: var(--font-display); font-weight: 800; font-size: 2.6rem; direction: ltr; }
-.grade h3 { font-size: 1.3rem; font-weight: 800; }
-.grade .fr { direction: ltr; color: var(--accent-text); font-weight: 500; font-size: 0.95rem; }
-.grade .meta { color: var(--muted); font-size: 0.9rem; }
-.grade .go { margin-top: 6px; display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 0 28px; border-radius: 8px; background: linear-gradient(135deg, var(--accent-deep), var(--accent-2)); color: #0b1430; font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; }
+.grades { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+.stage.sec .grades { grid-template-columns: repeat(3, 1fr); }
+.grade { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; background: var(--card); border: 1px solid var(--line); border-top: 3px solid var(--tone-line); border-radius: 16px; padding: 28px 18px; transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s; }
+a.grade:hover { border-color: var(--tone-line); transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3); }
+.grade .glyph { display: grid; place-items: center; width: 76px; height: 76px; border-radius: 20px; background: var(--tone-soft); border: 1px solid var(--tone-line); color: var(--tone); font-family: var(--font-display); font-weight: 800; font-size: 2.3rem; direction: ltr; }
+.grade h3 { font-size: 1.15rem; font-weight: 800; }
+.grade .fr { direction: ltr; color: var(--tone); font-weight: 500; font-size: 0.9rem; }
+.grade .go { margin-top: 6px; display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 24px; border-radius: 8px; background: linear-gradient(135deg, var(--tone-btn1), var(--tone-btn2)); color: #0b1430; font-family: var(--font-display); font-weight: 700; font-size: 0.92rem; }
+.grade.soon { opacity: 0.75; }
+.grade.soon .go { background: transparent; border: 1px dashed var(--tone-line); color: var(--tone); }
 
 .foot { border-top: 1px solid var(--line); padding-block: 22px; color: var(--muted); font-size: 0.85rem; }
 .foot-in { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; }
 
-@media (max-width: 700px) { .grades { grid-template-columns: 1fr; } .hero { padding-block: 40px 16px; } }
+@media (max-width: 800px) { .stage.sec .grades { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .grades, .stage.sec .grades { grid-template-columns: 1fr; } .hero { padding-block: 40px 16px; } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
 </style>
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}img{max-width:100%}[hidden]{display:none!important}</style>
@@ -90,32 +97,45 @@ h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; line-height: 
       <span class="coach-photo"><img alt="مسيو رضا الخشن" src="data:image/jpeg;base64,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"></span>
       <span class="eyebrow">Bienvenue</span>
       <h1><span class="hl">اختبارات اللغة الفرنسية</span></h1>
-      <p class="lead">مع مسيو رضا الخشن. اختر صفك الدراسي وابدأ اختبار نفسك في دروس المنهج، مع تصحيح فوري بعد كل سؤال.</p>
+      <p class="lead">مع مسيو رضا الخشن. اختر مرحلتك وصفك الدراسي وابدأ اختبار نفسك في دروس المنهج، مع تصحيح فوري بعد كل سؤال.</p>
     </div>
   </section>
 
   <section class="band">
-    <div class="wrap">
+    <div class="wrap stage sec">
       <div class="sec-head">
-        <span class="eyebrow">Choisissez votre classe</span>
-        <h2>اختر صفك الدراسي</h2>
+        <span class="eyebrow">Le secondaire</span>
+        <h2>المرحلة الثانوية</h2>
         <p>اضغط على أيقونة صفك للدخول إلى اختباراته.</p>
       </div>
       <div class="grades">
-        <a class="grade" href="https://redaelkhshen-dev.github.io/1/" target="_self">
-          <span class="glyph">1</span>
-          <h3>الصف الأول الثانوي</h3>
-          <span class="fr">Première année secondaire</span>
-          <span class="meta">اختبارات دروس الصف الأول الثانوي</span>
-          <span class="go">ابدأ الاختبار ←</span>
-        </a>
-        <a class="grade" href="https://redaelkhshen-dev.github.io/3/" target="_self">
-          <span class="glyph">3</span>
-          <h3>الصف الثالث الثانوي</h3>
-          <span class="fr">Troisième année secondaire</span>
-          <span class="meta">اختبارات دروس الصف الثالث الثانوي</span>
-          <span class="go">ابدأ الاختبار ←</span>
-        </a>
+        <a class="grade" href="https://redaelkhshen-dev.github.io/1/" target="_self"><span class="glyph">1</span><h3>الصف الأول الثانوي</h3><span class="fr">Première année secondaire</span><span class="go">ابدأ الاختبار ←</span></a>
+        <div class="grade soon"><span class="glyph">2</span><h3>الصف الثاني الثانوي</h3><span class="fr">Deuxième année secondaire</span><span class="go">قريبًا</span></div>
+        <a class="grade" href="https://redaelkhshen-dev.github.io/3/" target="_self"><span class="glyph">3</span><h3>الصف الثالث الثانوي</h3><span class="fr">Troisième année secondaire</span><span class="go">ابدأ الاختبار ←</span></a>
+      </div>
+    </div>
+    <div class="wrap stage prep">
+      <div class="sec-head">
+        <span class="eyebrow">Le préparatoire</span>
+        <h2>المرحلة الإعدادية</h2>
+        <p>اختبارات المرحلة الإعدادية.</p>
+      </div>
+      <div class="grades">
+        <div class="grade soon"><span class="glyph">1</span><h3>الصف الأول الإعدادي</h3><span class="fr">Première année préparatoire</span><span class="go">قريبًا</span></div>
+        <div class="grade soon"><span class="glyph">2</span><h3>الصف الثاني الإعدادي</h3><span class="fr">Deuxième année préparatoire</span><span class="go">قريبًا</span></div>
+        <div class="grade soon"><span class="glyph">3</span><h3>الصف الثالث الإعدادي</h3><span class="fr">Troisième année préparatoire</span><span class="go">قريبًا</span></div>
+      </div>
+    </div>
+    <div class="wrap stage prim">
+      <div class="sec-head">
+        <span class="eyebrow">Le primaire</span>
+        <h2>المرحلة الابتدائية</h2>
+        <p>اختبارات المرحلة الابتدائية.</p>
+      </div>
+      <div class="grades">
+        <div class="grade soon"><span class="glyph">4</span><h3>الصف الرابع الابتدائي</h3><span class="fr">Quatrième année primaire</span><span class="go">قريبًا</span></div>
+        <div class="grade soon"><span class="glyph">5</span><h3>الصف الخامس الابتدائي</h3><span class="fr">Cinquième année primaire</span><span class="go">قريبًا</span></div>
+        <div class="grade soon"><span class="glyph">6</span><h3>الصف السادس الابتدائي</h3><span class="fr">Sixième année primaire</span><span class="go">قريبًا</span></div>
       </div>
     </div>
   </section>
