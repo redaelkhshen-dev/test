@@ -127,13 +127,13 @@ a.grade:active .go { transform: scale(0.95); }
 /* Stage heading animations */
 .js .sec-head .eyebrow, .js .sec-head h2, .js .sec-head p { opacity: 0; }
 .sec-head.in .eyebrow { animation: popIn 0.6s cubic-bezier(.2,1.5,.4,1) both; }
-.sec-head.in h2 { display: inline-block; align-self: center; animation: headIn 0.8s cubic-bezier(.2,.8,.2,1) 0.15s both; background: linear-gradient(100deg, var(--fg) 30%, var(--tone) 46%, var(--tone) 54%, var(--fg) 70%); background-size: 250% 100%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation-name: headIn, headShine; animation-duration: 0.8s, 4s; animation-delay: 0.15s, 1s; animation-iteration-count: 1, infinite; animation-timing-function: cubic-bezier(.2,.8,.2,1), linear; animation-fill-mode: both, none; }
+.sec-head.in h2 { animation: headIn 0.8s cubic-bezier(.2,.8,.2,1) 0.15s both, headGlow 3s ease-in-out 1s infinite; }
 .sec-head.in p { animation: fadeUp 0.7s ease 0.4s both; }
 .sec-head h2::after { width: 0; transition: none; }
 .sec-head.in h2::after { animation: lineGrow 0.9s cubic-bezier(.2,.8,.2,1) 0.5s forwards, linePulse 2.6s ease-in-out 1.5s infinite; }
 @keyframes popIn { from { opacity: 0; transform: scale(0.4) translateY(10px); } to { opacity: 1; transform: none; } }
-@keyframes headIn { from { opacity: 0; transform: translateY(26px); filter: blur(5px); } to { opacity: 1; transform: none; filter: none; } }
-@keyframes headShine { from { background-position: 100% 0; } to { background-position: -150% 0; } }
+@keyframes headIn { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+@keyframes headGlow { 0%, 100% { color: var(--fg); text-shadow: none; } 50% { color: var(--tone); text-shadow: 0 0 18px var(--tone-soft); } }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
 @keyframes lineGrow { from { width: 0; } to { width: 64px; } }
 @keyframes linePulse { 0%, 100% { box-shadow: 0 0 0 0 transparent; } 50% { box-shadow: 0 0 12px 2px var(--tone-line); } }
@@ -246,7 +246,7 @@ document.documentElement.setAttribute('data-theme',t)})();
   if(!('IntersectionObserver' in window)){els.forEach(show);return}
   var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){show(x.target);io.unobserve(x.target)}})},{threshold:0.25});
   els.forEach(function(e){io.observe(e)});
-  setTimeout(function(){els.forEach(show)},4000);
+  setTimeout(function(){els.forEach(show)},1500);
 })();
 </script>
 </body>
