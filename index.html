@@ -124,13 +124,17 @@ a.grade:active .go { transform: scale(0.95); }
 .grade:nth-child(2) { animation-delay: 0.1s; }
 .grade:nth-child(3) { animation-delay: 0.2s; }
 @keyframes cardIn { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
-/* Stage heading animations */
-.js .sec-head .eyebrow, .js .sec-head h2, .js .sec-head p { opacity: 0; }
-.sec-head.in .eyebrow { animation: popIn 0.6s cubic-bezier(.2,1.5,.4,1) both; }
-.sec-head.in h2 { animation: headIn 0.8s cubic-bezier(.2,.8,.2,1) 0.15s both, headGlow 3s ease-in-out 1s infinite; }
-.sec-head.in p { animation: fadeUp 0.7s ease 0.4s both; }
-.sec-head h2::after { width: 0; transition: none; }
-.sec-head.in h2::after { animation: lineGrow 0.9s cubic-bezier(.2,.8,.2,1) 0.5s forwards, linePulse 2.6s ease-in-out 1.5s infinite; }
+/* Stage heading animations: always visible by default, animation only decorates */
+.sec-head .eyebrow { animation: popIn 0.6s cubic-bezier(.2,1.5,.4,1) backwards; }
+.sec-head h2 { animation: headIn 0.8s cubic-bezier(.2,.8,.2,1) 0.15s backwards, headGlow 3s ease-in-out 1s infinite; }
+.sec-head p { animation: fadeUp 0.7s ease 0.4s backwards; }
+.sec-head h2::after { width: 64px; animation: lineGrow 0.9s cubic-bezier(.2,.8,.2,1) 0.5s backwards, linePulse 2.6s ease-in-out 1.5s infinite; }
+@supports (animation-timeline: view()) {
+  .sec-head .eyebrow { animation: popIn linear backwards; animation-timeline: view(); animation-range: entry 0% entry 70%; }
+  .sec-head h2 { animation: headIn linear backwards, headGlow 3s ease-in-out infinite; animation-timeline: view(), auto; animation-range: entry 0% entry 80%, normal; }
+  .sec-head p { animation: fadeUp linear backwards; animation-timeline: view(); animation-range: entry 10% entry 90%; }
+  .sec-head h2::after { animation: lineGrow linear backwards, linePulse 2.6s ease-in-out infinite; animation-timeline: view(), auto; animation-range: entry 20% entry 100%, normal; }
+}
 @keyframes popIn { from { opacity: 0; transform: scale(0.4) translateY(10px); } to { opacity: 1; transform: none; } }
 @keyframes headIn { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
 @keyframes headGlow { 0%, 100% { color: var(--fg); text-shadow: none; } 50% { color: var(--tone); text-shadow: 0 0 18px var(--tone-soft); } }
@@ -151,7 +155,6 @@ body, .hdr, .foot { transition: background-color 0.25s, color 0.25s, border-colo
 if(!t){t=(window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches)?'light':'dark'}
 document.documentElement.setAttribute('data-theme',t)})();
 </script>
-<script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
 <div dir="rtl" lang="ar">
@@ -237,16 +240,6 @@ document.documentElement.setAttribute('data-theme',t)})();
     var n=root.getAttribute('data-theme')==='light'?'dark':'light';
     root.setAttribute('data-theme',n);btn.classList.remove('spin');void btn.offsetWidth;btn.classList.add('spin');try{localStorage.setItem('theme',n)}catch(e){}paint();
   });
-})();
-</script>
-<script>
-(function(){
-  var els=document.querySelectorAll('.sec-head');
-  function show(e){e.classList.add('in')}
-  if(!('IntersectionObserver' in window)){els.forEach(show);return}
-  var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){show(x.target);io.unobserve(x.target)}})},{threshold:0.25});
-  els.forEach(function(e){io.observe(e)});
-  setTimeout(function(){els.forEach(show)},1500);
 })();
 </script>
 </body>
